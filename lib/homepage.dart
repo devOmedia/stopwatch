@@ -53,6 +53,37 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  // start timer function
+
+  void start() {
+    started = true;
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      int localSecond = seconds + 1;
+      int localMinute = minutes;
+      int localHour = hours;
+
+      if (localSecond > 59) {
+        if (localMinute > 59) {
+          localHour++;
+          localSecond = 0;
+        } else {
+          localMinute++;
+          localSecond = 0;
+        }
+      }
+
+      setState(() {
+        seconds = localSecond;
+        minutes = localMinute;
+        hours = localHour;
+
+        digitSeconds = (seconds >= 10) ? "$seconds" : "0$seconds";
+        digitMinutes = (minutes >= 10) ? "$minutes" : "0$minutes";
+        digitHours = (hours >= 10) ? "$hours" : "0$hours";
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
