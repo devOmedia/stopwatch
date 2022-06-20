@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                     margin: const EdgeInsets.only(top: 20.0),
                     height: MediaQuery.of(context).size.height * 0.5,
                     decoration: BoxDecoration(
-                        color: Colors.grey.shade600,
+                        color: Colors.indigo.shade600,
                         borderRadius: BorderRadius.circular(15.0)),
                     child: ListView.builder(
                       itemCount: laps.length,
