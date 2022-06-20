@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int hours = 0, minutes = 0, secounds = 0;
+  int hours = 0, minutes = 0, seconds = 0;
   String digitSeconds = "00", digitMinutes = "00", digitHours = "00";
   Timer? timer;
   bool started = false;
@@ -29,7 +29,29 @@ class _HomePageState extends State<HomePage> {
   }
 
   //restart function
-  void reset() {}
+  void reset() {
+    timer!.cancel();
+
+    setState(() {
+      seconds = 0;
+      minutes = 0;
+      hours = 0;
+
+      digitSeconds = "00";
+      digitMinutes = "00";
+      digitHours = "00";
+
+      started = false;
+    });
+  }
+
+  //add laps
+  void addLaps() {
+    String lap = "$digitSeconds:$digitMinutes:$digitHours";
+    setState(() {
+      laps.add(lap);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
