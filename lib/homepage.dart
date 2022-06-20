@@ -54,6 +54,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  //remove laps
+  void removeLap(index) {
+    setState(() {
+      laps.removeAt(index);
+    });
+  }
+
   // start timer function
 
   void start() {
@@ -131,9 +138,20 @@ class _HomePageState extends State<HomePage> {
                             child: Padding(
                               padding: const EdgeInsets.all(18.0),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Text("Lap ${index + 1}: "),
                                   Text(laps[index]),
+                                  IconButton(
+                                    onPressed: () {
+                                      removeLap(index);
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ));
