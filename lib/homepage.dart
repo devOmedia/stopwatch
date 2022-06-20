@@ -47,7 +47,8 @@ class _HomePageState extends State<HomePage> {
 
   //add laps
   void addLaps() {
-    String lap = "$digitSeconds:$digitMinutes:$digitHours";
+    String lap = "$digitHours:$digitMinutes:$digitMinutes";
+    print(lap);
     setState(() {
       laps.add(lap);
     });
@@ -99,14 +100,14 @@ class _HomePageState extends State<HomePage> {
                     'Flutter Stop Watch',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color.fromARGB(255, 16, 38, 206),
+                      color: Color.fromARGB(255, 89, 106, 236),
                       fontWeight: FontWeight.bold,
                       fontSize: 28,
                     ),
                   ),
-                  const Text(
-                    '00:00:00',
-                    style: TextStyle(
+                  Text(
+                    '$digitHours:$digitMinutes:$digitSeconds',
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 80.0,
                       fontWeight: FontWeight.w600,
@@ -116,8 +117,28 @@ class _HomePageState extends State<HomePage> {
                     margin: const EdgeInsets.only(top: 20.0),
                     height: MediaQuery.of(context).size.height * 0.5,
                     decoration: BoxDecoration(
-                        color: Colors.grey.shade800,
+                        color: Colors.grey.shade600,
                         borderRadius: BorderRadius.circular(15.0)),
+                    child: ListView.builder(
+                      itemCount: laps.length,
+                      itemBuilder: (context, index) {
+                        return DefaultTextStyle(
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Row(
+                                children: [
+                                  Text("Lap ${index + 1}: "),
+                                  Text(laps[index]),
+                                ],
+                              ),
+                            ));
+                      },
+                    ),
                   ),
                   const SizedBox(
                     height: 20.0,
@@ -127,14 +148,16 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Expanded(
                         child: RawMaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            (!started) ? start() : stop();
+                          },
                           shape: const StadiumBorder(
                               side: BorderSide(
                             color: Colors.indigo,
                           )),
-                          child: const Text(
-                            "Start",
-                            style: TextStyle(
+                          child: Text(
+                            (!started) ? "Start" : "Pause",
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18.0,
                             ),
@@ -142,13 +165,17 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          addLaps();
+                        },
                         icon: const Icon(Icons.flag),
                         color: Colors.indigo,
                       ),
                       Expanded(
                         child: RawMaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            reset();
+                          },
                           fillColor: Colors.indigo,
                           shape: const StadiumBorder(),
                           child: const Text(
