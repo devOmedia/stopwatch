@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
 
   //add laps
   void addLaps() {
-    String lap = "$digitHours:$digitMinutes:$digitMinutes";
+    String lap = "$digitHours:$digitMinutes:$digitSeconds";
     print(lap);
     setState(() {
       laps.add(lap);
